@@ -3,6 +3,10 @@ package in.tvac.akshayejh.fingerprintauthapp;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.media.Image;
@@ -17,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.net.SocketAddress;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -26,11 +31,16 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.UUID;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+
+import static in.tvac.akshayejh.fingerprintauthapp.DeviceList.EXTRA_ADDRESS;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,28 +48,26 @@ public class MainActivity extends AppCompatActivity {
     private TextView mHeadingLabel;
     private ImageView mFingerprintImage;
     private TextView mParaLabel;
-
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
-
     private KeyStore keyStore;
     private Cipher cipher;
     private String KEY_NAME = "AndroidKey";
+    public static String address = null;
+    BluetoothAdapter myBluetooth = null;
+    BluetoothSocket btSocket = null;
+    Set<BluetoothDevice> pairedDevices;
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mFingerprintImage = (ImageView) findViewById(R.id.fingerprintImage);
         mParaLabel = (TextView) findViewById(R.id.paraLabel);
-
-        // Check 1: Android version should be greater or equal to Marshmallow
-        // Check 2: Device has Fingerprint Scanner
-        // Check 3: Have permission to use fingerprint scanner in the app
-        // Check 4: Lock screen is secured with atleast 1 type of lock
-        // Check 5: Atleast 1 Fingerprint is registered
-
+        Intent newint = getIntent();
+        address = newint.getStringExtra(EXTRA_ADDRESS);
+        System.out.println(address);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);

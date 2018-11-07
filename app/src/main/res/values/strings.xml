@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FingerprintAuthApp</string>
+    <string name="desbloquear_caja">Desbloquear caja</string>
+    <string name="desbloquear">DESBLOQUEAR</string>
+    <string name="encendio_apagado">Encendido/Apagado</string>
+    <string name="bluetooth_address">BlueTooth Address</string>
+    <string name="Desbloquear">Desbloquear Caja</string>
+    <string name="siguiente">siguiente</string>
+    <string name="abrir">Abrir cerradura</string>
+    <string name="cerrar">Cerrar cerradura</string>
 </resources>
