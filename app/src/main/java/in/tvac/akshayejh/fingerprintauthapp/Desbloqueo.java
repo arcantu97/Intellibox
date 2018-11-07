@@ -89,7 +89,7 @@ public class Desbloqueo extends AppCompatActivity {
     }
 
     private void onPrexecute() {
-        progress = ProgressDialog.show(Desbloqueo.this, "Connecting...", "Please wait!!!");  //show a progress dialog
+        progress = ProgressDialog.show(Desbloqueo.this, "Conectado...", "Por favor espera!!!");  //show a progress dialog
     }
 
     protected void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
@@ -97,11 +97,8 @@ public class Desbloqueo extends AppCompatActivity {
         try {
             if (btSocket == null || !isBtConnected) {
                 myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                System.out.println("1");
                 BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(MainActivity.address);//connects to the device's address and checks if it's available
-                System.out.println("2");
                 btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
-                System.out.println("3");
                 BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
                 btSocket.connect();//start connection
             }
