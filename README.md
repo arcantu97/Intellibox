@@ -6,7 +6,7 @@ Intellibox fue desarrollado con:
 * Arduino 
 * Android Studio
 
-*Intellibox permite desbloquear por medio de la huella digital de tu smartphone Android, una caja fuerte.
+### Intellibox permite desbloquear por medio de la huella digital de tu smartphone Android, una caja fuerte.
 
 Desarollado por
 ----
